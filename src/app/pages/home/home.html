@@ -1,29 +1,53 @@
-<div class="container">
-  <div class="welcome-message">
-    <h2>Welcome to Your Journal</h2>
-    <p>Create and customize your digital bullet journal</p>
+<div class="min-h-screen flex flex-col items-center p-4">
+  <div class="w-full max-w-4xl flex flex-col items-center text-center mt-6 md:mt-10">
+    <h2 class="text-xl md:text-2xl font-semibold font-mono">Welcome to Your Journal</h2>
+    <p class="text-gray-600 font-mono mb-6 text-sm md:text-base">
+      Create and customize your digital bullet journal
+    </p>
 
-    <div class="title-change">
-      <input
-        class="title-input"
-        type="text"
-        placeholder="Enter notebook title..."
-        [(ngModel)]="notebookName"
-      />
-    </div>
+    <input
+      type="text"
+      placeholder="Enter notebook title..."
+      [(ngModel)]="notebookName"
+      class="font-mono w-full max-w-md px-4 py-3 rounded-xl border-none outline-none text-center text-base shadow-sm focus:ring-2 focus:ring-black/5 transition-all"
+    />
 
-    <div class="notebook-wrapper">
-      <div class="notebook" [style.background]="selectedColor">
-        <h1 class="title">{{ notebookName || 'My Journal' }}</h1>
+    <div
+      class="flex flex-col md:flex-row items-center md:items-start justify-center gap-8 mt-10 w-full"
+    >
+      <div
+        class="relative w-full max-w-75 md:max-w-100 aspect-3/4 p-8 flex flex-col items-center shadow-2xl border-l-30 md:border-l-50 border-black/10 rounded-r-2xl bg-white transition-colors duration-300"
+        [style.background]="selectedColor"
+      >
+        <h1 class="text-lg md:text-2xl mt-15 font-mono wrap-break-word text-center w-full">
+          {{ notebookName || 'My Journal' }}
+        </h1>
       </div>
 
-      <div class="color-picker-grid">
+      <div class="grid grid-cols-4 md:grid-cols-2 gap-3 self-center md:self-start">
         <button
           *ngFor="let color of colors"
           [style.background]="color"
-          (click)="setColor(color)"
+          (click)="selectedColor = color"
+          class="w-10 h-10 md:w-12 md:h-12 rounded-xl transition-all hover:scale-110 active:scale-95 shadow-sm border border-black/10"
+          [title]="color"
         ></button>
       </div>
     </div>
   </div>
 </div>
+<svg
+  class="w-6 h-6 text-gray-800"
+  aria-hidden="true"
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  viewBox="0 0 8 14"
+>
+  <path
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="2"
+    d="m1 13 5.7-5.326a.909.909 0 0 0 0-1.348L1 1"
+  />
+</svg>
