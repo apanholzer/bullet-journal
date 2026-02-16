@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="welcome-message">
+    <h2>Welcome to Your Journal</h2>
+    <p>Create and customize your digital bullet journal</p>
+
+    <div class="title-change">
+      <input
+        class="title-input"
+        type="text"
+        placeholder="Enter notebook title..."
+        [(ngModel)]="notebookName"
+      />
+    </div>
+
+    <div class="notebook-wrapper">
+      <div class="notebook" [style.background]="selectedColor">
+        <h1 class="title">{{ notebookName || 'My Journal' }}</h1>
+      </div>
+
+      <div class="color-picker-grid">
+        <button
+          *ngFor="let color of colors"
+          [style.background]="color"
+          (click)="setColor(color)"
+        ></button>
+      </div>
+    </div>
+  </div>
+</div>
