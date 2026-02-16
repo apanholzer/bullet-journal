@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Icons } from '../icons/icons';
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, Icons],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -26,5 +27,9 @@ export class Home {
 
   setColor(color: string) {
     this.selectedColor = color;
+  }
+
+  test() {
+    console.log('Zeit zum schlafen');
   }
 }
