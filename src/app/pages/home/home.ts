@@ -15,10 +15,46 @@ export class Home {
   selectedColor = '#f5e6c8';
   currentPalette: number = 0;
 
-  colorPalettes: string[][] = [
-    ['#caffbf', '#fdffb6', '#ffd6a5', '#ffadad', '#ffc6ff', '#bdb2ff', '#9bf6ff', '#a0c4ff'],
-    ['#c8f5e6', '#e6f5c8', '#f5e6c8', '#fabebe', '#f5c8e6', '#e6c8f5', '#c8e6f5', '#bebcf5'],
-    ['#ffffff', '#e6e3e3', '#d1d1d1', '#bfbfbf', '#a6a2a2', '#808080', '#5e5e5e', '#3b3a3a'],
+  colorPalettes = [
+    {
+      name: 'bright',
+      colors: [
+        '#caffbf',
+        '#fdffb6',
+        '#ffd6a5',
+        '#f09191',
+        '#ffc6ff',
+        '#bdb2ff',
+        '#9bf6ff',
+        '#a0c4ff',
+      ],
+    },
+    {
+      name: 'pastel',
+      colors: [
+        '#c9e4de',
+        '#faedcb',
+        '#f7d9c4',
+        '#f2b0b0',
+        '#f2c6de',
+        '#dbcdf0',
+        '#b3ebf2',
+        '#b3d1e7',
+      ],
+    },
+    {
+      name: 'grey',
+      colors: [
+        '#ffffff',
+        '#e6e3e3',
+        '#d1d1d1',
+        '#bfbfbf',
+        '#a6a2a2',
+        '#808080',
+        '#5e5e5e',
+        '#3b3a3a',
+      ],
+    },
   ];
 
   setColor(color: string) {
