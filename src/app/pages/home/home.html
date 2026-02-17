@@ -16,7 +16,7 @@
       class="flex flex-col md:flex-row items-center md:items-start justify-center gap-8 mt-10 w-full"
     >
       <div
-        class="relative w-full max-w-75 md:max-w-100 aspect-3/4 p-8 flex flex-col items-center shadow-2xl border-l-30 md:border-l-50 border-black/10 rounded-r-2xl bg-white transition-colors duration-300"
+        class="relative w-full max-w-75 md:max-w-100 aspect-3/4 p-8 flex flex-col items-center shadow-2xl border-l-20 md:border-l-30 border-black/10 rounded-r-2xl bg-white transition-colors duration-300"
         [style.background]="selectedColor"
       >
         <h1 class="text-lg md:text-2xl mt-15 font-mono wrap-break-word text-center w-full">
@@ -24,17 +24,25 @@
         </h1>
       </div>
 
-      <div class="grid grid-cols-5 md:grid-cols-2 gap-3 self-center md:self-start">
-        <button
-          *ngFor="let color of colors"
-          [style.background]="color"
-          (click)="selectedColor = color"
-          class="w-10 h-10 md:w-12 md:h-12 rounded-xl transition-all hover:scale-110 active:scale-95 shadow-sm border border-black/10"
-        ></button>
-        <div class="w-10"></div>
-        <div class="flex justify-end items-center md:justify-self-end">
-          <button (click)="test()">
-            <app-icons></app-icons>
+      <div class="flex flex-col">
+        <div class="grid grid-cols-4 md:grid-cols-2 gap-3 self-center md:self-start">
+          <button
+            *ngFor="let color of colorPalettes[currentPalette]"
+            [style.background]="color"
+            (click)="selectedColor = color"
+            class="w-10 h-10 md:w-12 md:h-12 rounded-xl transition-all hover:scale-110 active:scale-95 shadow-sm border border-black/10"
+          ></button>
+        </div>
+
+        <div class="flex justify-between items-center mt-4">
+          <button (click)="prevPalette()" class="hover:scale-120 gap-1 transition-all">
+            <app-icons type="left"></app-icons>
+          </button>
+
+          <div class="w-10"></div>
+
+          <button (click)="nextPalette()" class="hover:scale-110 gap-1 transition-all">
+            <app-icons type="right"></app-icons>
           </button>
         </div>
       </div>

@@ -13,23 +13,24 @@ export class Home {
   notebookName = '';
 
   selectedColor = '#f5e6c8';
+  currentPalette: number = 0;
 
-  colors: string[] = [
-    '#f5e6c8',
-    '#c8f5e6',
-    '#e6c8f5',
-    '#f5c8e6',
-    '#c8e6f5',
-    '#e6f5c8',
-    '#aaeeb5',
-    '#b7b9b2',
+  colorPalettes: string[][] = [
+    ['#caffbf', '#fdffb6', '#ffd6a5', '#ffadad', '#ffc6ff', '#bdb2ff', '#9bf6ff', '#a0c4ff'],
+    ['#c8f5e6', '#e6f5c8', '#f5e6c8', '#fabebe', '#f5c8e6', '#e6c8f5', '#c8e6f5', '#bebcf5'],
+    ['#ffffff', '#e6e3e3', '#d1d1d1', '#bfbfbf', '#a6a2a2', '#808080', '#5e5e5e', '#3b3a3a'],
   ];
 
   setColor(color: string) {
     this.selectedColor = color;
   }
 
-  test() {
-    console.log('Zeit zum schlafen');
+  nextPalette() {
+    this.currentPalette = (this.currentPalette + 1) % this.colorPalettes.length;
+  }
+
+  prevPalette() {
+    this.currentPalette =
+      (this.currentPalette - 1 + this.colorPalettes.length) % this.colorPalettes.length;
   }
 }
