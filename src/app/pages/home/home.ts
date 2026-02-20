@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Icons } from '../icons/icons';
+import { Colorpalette } from '../colorpalette/colorpalette';
 import { Lightbulb } from '../lightbulb/lightbulb';
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, CommonModule, Icons, Lightbulb],
+  imports: [FormsModule, Colorpalette, CommonModule, Lightbulb],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -14,15 +14,12 @@ export class Home {
   constructor() {
     document.documentElement.classList.remove('dark');
   }
-  // home.ts
   onLightToggle(isOn: boolean) {
-    console.log('Licht-Status erhalten:', isOn);
     if (isOn) {
       document.documentElement.classList.remove('dark');
     } else {
       document.documentElement.classList.add('dark');
     }
-    console.log('Klassen am HTML-Element:', document.documentElement.classList.value);
   }
 
   notebookName = '';
