@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Colorpalette } from '../colorpalette/colorpalette';
 import { Lightbulb } from '../lightbulb/lightbulb';
+import { JournalEntry } from '../../models/journal.model';
+import { JournalService } from '../../services/journal.service';
 
 @Component({
   selector: 'app-home',
@@ -10,16 +12,33 @@ import { Lightbulb } from '../lightbulb/lightbulb';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home {
+export class Home implements OnInit {
+  private journalService = inject(JournalService);
+  allJournals: JournalEntry[] = [];
+
+  ngOnInit(): void {
+    this.loadAll();
+  }
+
   constructor() {
     document.documentElement.classList.remove('dark');
   }
+
   onLightToggle(isOn: boolean) {
     if (isOn) {
       document.documentElement.classList.remove('dark');
     } else {
       document.documentElement.classList.add('dark');
     }
+  }
+
+  loadAll() {
+    this.journalService.getJournals().subscribe({
+      next: (data) => {
+        this.allJournals = data;
+      },
+      error: (err) => console.error('Backend nicht erreichbar?', err),
+    });
   }
 
   notebookName = '';
@@ -80,5 +99,27 @@ export class Home {
   prevPalette() {
     this.currentPalette =
       (this.currentPalette - 1 + this.colorPalettes.length) % this.colorPalettes.length;
+  }
+
+  save() {
+    this.journalService.saveJournal(this.notebookName, this.selectedColor).subscribe({
+      next: (data) => {
+        console.log('Gespeichert', data);
+        this.allJournals = data;
+      },
+      error: (err) => console.error('Fehler beim Speichern', err),
+    });
+  }
+
+  onLoadJournal(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedId = Number(selectElement.value);
+
+    const journal = this.allJournals.find((j) => j.id === selectedId);
+
+    if (journal) {
+      this.notebookName = journal.journalname;
+      this.selectedColor = journal.color;
+    }
   }
 }

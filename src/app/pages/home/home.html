@@ -45,4 +45,19 @@
       ></app-colorpalette>
     </div>
   </div>
+  <button (click)="save()" class="mt-4 px-6 py-2 bg-yellow-400 rounded-lg font-mono">
+    Save Journal
+  </button>
+
+  <div class="mt-10" *ngIf="allJournals.length > 0">
+    <select
+      (change)="onLoadJournal($event)"
+      class="p-2 rounded bg-white dark:bg-gray-800 dark:text-white font-mono"
+    >
+      <option value="">Load a journal...</option>
+      <option *ngFor="let j of allJournals" [value]="j.id">
+        {{ j.journalname }}
+      </option>
+    </select>
+  </div>
 </div>
