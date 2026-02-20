@@ -7,6 +7,7 @@ import { Home } from './pages/home/home';
   imports: [Home],
   templateUrl: './app.html',
   styleUrl: './app.css',
+  standalone: true,
 })
 export class App {
   protected readonly title = signal('journal-app');

@@ -1,49 +1,73 @@
-<div class="min-h-screen flex flex-col items-center p-4">
-  <div class="w-full max-w-4xl flex flex-col items-center text-center mt-6 md:mt-10">
-    <h2 class="text-xl md:text-2xl font-semibold font-mono">Welcome to Your Journal</h2>
-    <p class="text-gray-600 font-mono mb-6 text-sm md:text-base">
-      Create and customize your digital bullet journal
-    </p>
+<div class="absolute top-0 left-4 md:left-10 z-50">
+  <app-lightbulb (statusChanged)="onLightToggle($event)"></app-lightbulb>
+</div>
 
-    <input
-      type="text"
-      placeholder="Enter notebook title..."
-      [(ngModel)]="notebookName"
-      class="font-mono w-full max-w-md px-4 py-3 rounded-xl border-none outline-none text-center text-base shadow-sm focus:ring-2 focus:ring-black/5 transition-all"
-    />
+<div class="min-h-screen flex flex-col items-center p-4 transition-colors duration-500">
+  <div class="w-full max-w-5xl flex flex-col items-center text-center mt-12 md:mt-20">
+    <header class="mb-8 md:mb-12">
+      <h2 class="text-2xl md:text-4xl font-semibold font-mono dark:text-white">
+        Welcome to Your Journal
+      </h2>
+      <p class="text-gray-600 dark:text-gray-400 font-mono mt-2 text-sm md:text-base">
+        Create and customize your digital bullet journal
+      </p>
+    </header>
 
-    <div
-      class="flex flex-col md:flex-row items-center md:items-start justify-center gap-8 mt-10 w-full"
-    >
+    <div class="w-full max-w-md mb-10 md:mb-16">
+      <input
+        type="text"
+        placeholder="Enter notebook title..."
+        [(ngModel)]="notebookName"
+        class="font-mono w-full px-6 py-4 rounded-2xl border-none outline-none text-center text-base md:text-lg shadow-lg focus:ring-4 focus:ring-black/5 dark:focus:ring-white/5 transition-all dark:bg-gray-800 dark:text-white dark:placeholder-gray-500"
+      />
+    </div>
+
+    <div class="flex flex-col lg:flex-row items-center justify-center gap-10 md:gap-16 w-full">
       <div
-        class="relative w-full max-w-75 md:max-w-100 aspect-3/4 p-8 flex flex-col items-center shadow-2xl border-l-20 md:border-l-30 border-black/10 rounded-r-2xl bg-white transition-colors duration-300"
+        class="relative w-64 h-85 md:w-96 md:h-120 p-8 flex flex-col items-center shadow-2xl rounded-r-2xl transition-all duration-500 ease-in-out"
         [style.background]="selectedColor"
+        [style.border-left]="'clamp(20px, 6vw, 40px) solid rgba(0,0,0,0.1)'"
       >
-        <h1 class="text-lg md:text-2xl mt-15 font-mono wrap-break-word text-center w-full">
+        <div class="absolute inset-y-0 left-0 w-px bg-white/20"></div>
+
+        <h1
+          class="text-xl md:text-3xl mt-16 font-mono break-words text-center w-full leading-relaxed"
+        >
           {{ notebookName || 'My Journal' }}
         </h1>
       </div>
 
-      <div class="flex flex-col">
-        <div class="grid grid-cols-4 md:grid-cols-2 gap-3 self-center md:self-start">
+      <div class="flex flex-col w-full max-w-70">
+        <div class="grid grid-cols-4 lg:grid-cols-2 gap-4 self-center">
           <button
             *ngFor="let color of colorPalettes[currentPalette].colors"
             [style.background]="color"
             (click)="selectedColor = color"
-            class="w-10 h-10 md:w-12 md:h-12 rounded-xl transition-all hover:scale-110 active:scale-95 shadow-sm border border-black/10"
+            [class.ring-4]="selectedColor === color"
+            class="w-12 h-12 md:w-14 md:h-14 rounded-2xl transition-all hover:scale-110 active:scale-90 shadow-md ring-yellow-400 ring-offset-2 dark:ring-offset-gray-900 border border-black/5"
           ></button>
         </div>
 
-        <div class="flex justify-between items-center mt-4">
-          <button (click)="prevPalette()" class="hover:scale-120 gap-1 transition-all">
+        <div
+          class="flex justify-between items-center mt-8 bg-black/5 dark:bg-white/5 rounded-2xl p-3"
+        >
+          <button
+            (click)="prevPalette()"
+            class="hover:scale-125 transition-all p-2 active:scale-75"
+          >
             <app-icons type="left"></app-icons>
           </button>
 
-          <div class="text-sm font-mono text-gray-400 text-center flex-1">
+          <div
+            class="text-xs font-mono font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400"
+          >
             {{ colorPalettes[currentPalette].name }}
           </div>
 
-          <button (click)="nextPalette()" class="hover:scale-110 gap-1 transition-all">
+          <button
+            (click)="nextPalette()"
+            class="hover:scale-125 transition-all p-2 active:scale-75"
+          >
             <app-icons type="right"></app-icons>
           </button>
         </div>

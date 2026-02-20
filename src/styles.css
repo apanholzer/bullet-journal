@@ -1,2 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
 @import 'tailwindcss';
+
+@config "../tailwind.config.js"; /* Verlinkt deine bestehende Konfig */
+
+@variant dark (&:where(.dark, .dark *));
