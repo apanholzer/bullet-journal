@@ -1,0 +1,26 @@
+<div class="min-h-screen flex flex-col items-center justify-center bg-neutral-100 text-center">
+  <header class="mb-8">
+    <h1 class="text-xl md:text-6xl font-semibold font-mono dark:text-white">
+      Welcome to Your Journal
+    </h1>
+    <p class="text-gray-500 dark:text-gray-400 font-mono text-sm md:text-2xl mt-1">
+      Create and customize your digital bullet journal
+    </p>
+  </header>
+
+  <button
+    (click)="startNewJournal()"
+    class="px-6 py-3 bg-purple-300 rounded-lg font-mono text-lg transition-all hover:bg-purple-400"
+  >
+    Start New Journal
+  </button>
+
+  <div class="mt-6">
+    <select
+      (change)="startNewJournal()"
+      class="p-2 rounded bg-white dark:bg-gray-800 dark:text-white font-mono"
+    >
+      <option value="">Load existing journal...</option>
+    </select>
+  </div>
+</div>
