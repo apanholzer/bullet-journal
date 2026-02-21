@@ -3,8 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Colorpalette } from '../colorpalette/colorpalette';
 import { Lightbulb } from '../lightbulb/lightbulb';
-import { JournalEntry } from '../../models/journal.model';
 import { JournalService } from '../../services/journal.service';
+import { JournalstorageService } from '../../services/journalstorage.service';
 
 @Component({
   selector: 'app-home',
@@ -12,13 +12,9 @@ import { JournalService } from '../../services/journal.service';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home implements OnInit {
+export class Home {
   private journalService = inject(JournalService);
-  allJournals: JournalEntry[] = [];
-
-  ngOnInit(): void {
-    this.loadAll();
-  }
+  public journalStorage = inject(JournalstorageService);
 
   constructor() {
     document.documentElement.classList.remove('dark');
@@ -32,18 +28,6 @@ export class Home implements OnInit {
     }
   }
 
-  loadAll() {
-    this.journalService.getJournals().subscribe({
-      next: (data) => {
-        this.allJournals = data;
-      },
-      error: (err) => console.error('Backend nicht erreichbar?', err),
-    });
-  }
-
-  notebookName = '';
-
-  selectedColor = '#f5e6c8';
   currentPalette: number = 0;
 
   colorPalettes = [
@@ -89,7 +73,7 @@ export class Home implements OnInit {
   ];
 
   setColor(color: string) {
-    this.selectedColor = color;
+    this.journalStorage.selectedColor = color;
   }
 
   nextPalette() {
@@ -102,24 +86,14 @@ export class Home implements OnInit {
   }
 
   save() {
-    this.journalService.saveJournal(this.notebookName, this.selectedColor).subscribe({
-      next: (data) => {
-        console.log('Gespeichert', data);
-        this.allJournals = data;
-      },
-      error: (err) => console.error('Fehler beim Speichern', err),
-    });
-  }
-
-  onLoadJournal(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    const selectedId = Number(selectElement.value);
-
-    const journal = this.allJournals.find((j) => j.id === selectedId);
-
-    if (journal) {
-      this.notebookName = journal.journalname;
-      this.selectedColor = journal.color;
-    }
+    this.journalService
+      .saveJournal(this.journalStorage.notebookName, this.journalStorage.selectedColor)
+      .subscribe({
+        next: (data) => {
+          console.log('Gespeichert', data);
+          this.journalStorage.allJournals = data;
+        },
+        error: (err) => console.error('Fehler beim Speichern', err),
+      });
   }
 }

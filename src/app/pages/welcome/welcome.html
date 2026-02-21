@@ -12,15 +12,18 @@
     (click)="startNewJournal()"
     class="px-6 py-3 bg-purple-300 rounded-lg font-mono text-lg transition-all hover:bg-purple-400"
   >
-    Start New Journal
+    {{ buttonText }}
   </button>
 
-  <div class="mt-6">
+  <div class="mt-5" *ngIf="journalStorage.allJournals.length > 0">
     <select
-      (change)="startNewJournal()"
+      (change)="onLoadJournal($event)"
       class="p-2 rounded bg-white dark:bg-gray-800 dark:text-white font-mono"
     >
-      <option value="">Load existing journal...</option>
+      <option value="">Load a journal...</option>
+      <option *ngFor="let j of journalStorage.allJournals" [value]="j.id">
+        {{ j.journalname }}
+      </option>
     </select>
   </div>
 </div>
