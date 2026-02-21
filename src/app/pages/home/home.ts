@@ -16,16 +16,10 @@ export class Home {
   private journalService = inject(JournalService);
   public journalStorage = inject(JournalstorageService);
 
-  constructor() {
-    document.documentElement.classList.remove('dark');
-  }
+  constructor() {}
 
   onLightToggle(isOn: boolean) {
-    if (isOn) {
-      document.documentElement.classList.remove('dark');
-    } else {
-      document.documentElement.classList.add('dark');
-    }
+    this.journalStorage.onLightToggle(isOn);
   }
 
   currentPalette: number = 0;

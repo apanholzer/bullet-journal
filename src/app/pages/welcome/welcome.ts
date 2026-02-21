@@ -23,6 +23,10 @@ export class Welcome implements OnInit {
     this.loadAll();
   }
 
+  onLightToggle(isOn: boolean) {
+    this.journalStorage.onLightToggle(isOn);
+  }
+
   loadAll() {
     this.journalService.getJournals().subscribe({
       next: (data) => {

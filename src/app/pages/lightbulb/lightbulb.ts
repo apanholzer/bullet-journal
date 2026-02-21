@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { JournalstorageService } from '../../services/journalstorage.service';
 
 @Component({
   selector: 'app-lightbulb',
@@ -8,12 +9,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './lightbulb.css',
 })
 export class Lightbulb {
-  isOn = true;
+  private journalStorage = inject(JournalstorageService);
+
+  get isOn() {
+    return this.journalStorage.isLightOn;
+  }
 
   @Output() statusChanged = new EventEmitter<boolean>();
 
   toggleLight() {
-    this.isOn = !this.isOn;
-    this.statusChanged.emit(this.isOn);
+    const newState = !this.isOn;
+    this.journalStorage.onLightToggle(newState);
+    this.statusChanged.emit(newState);
   }
 }
