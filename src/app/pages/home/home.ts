@@ -90,4 +90,6 @@ export class Home {
         error: (err) => console.error('Fehler beim Speichern', err),
       });
   }
+
+  openJournal() {}
 }

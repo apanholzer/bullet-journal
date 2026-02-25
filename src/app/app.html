@@ -1,3 +1,10 @@
 <div class="min-h-screen bg-gray-100 dark:bg-gray-950 transition-colors duration-700">
   <router-outlet></router-outlet>
 </div>
+
+<button
+  (click)="goHome()"
+  class="fixed bottom-4 left-4 transition-transform duration-200 hover:scale-110"
+>
+  <app-homeicon></app-homeicon>
+</button>
